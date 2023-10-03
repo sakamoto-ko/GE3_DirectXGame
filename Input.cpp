@@ -1,0 +1,41 @@
+#include "Input.h"
+
+#include <cassert>
+
+#include <wrl.h>
+using namespace Microsoft::WRL;
+
+#define DIRECTINPUT_VERSION     0x0800   // DirectInputのバージョン指定
+#include <dinput.h>
+
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib")
+
+//初期化
+void Input::Initialize(HINSTANCE hInstance, HWND hwnd) {
+
+    HRESULT result;
+
+    // DirectInputのインスタンス生成
+    ComPtr<IDirectInput8> dInput = nullptr;
+    result = DirectInput8Create(
+        hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&dInput, nullptr);
+    assert(SUCCEEDED(result));
+
+    // キーボードデバイスの生成
+    ComPtr<IDirectInputDevice8> keyboard;
+    result = dInput->CreateDevice(GUID_SysKeyboard, &keyboard, NULL);
+    assert(SUCCEEDED(result));
+    // 入力データ形式のセット
+    result = keyboard->SetDataFormat(&c_dfDIKeyboard); // 標準形式
+    assert(SUCCEEDED(result));
+    // 排他制御レベルのセット
+    result = keyboard->SetCooperativeLevel(
+        hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
+    assert(SUCCEEDED(result));
+
+}
+//更新
+void Input::Update() {
+
+}
