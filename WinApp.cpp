@@ -4,7 +4,6 @@
 void WinApp::Initialize()
 {
     // ウィンドウクラスの設定
-    w{};
     w.cbSize = sizeof(WNDCLASSEX);
     w.lpfnWndProc = (WNDPROC)WindowProc; // ウィンドウプロシージャを設定
     w.lpszClassName = L"DirectXGame"; // ウィンドウクラス名
@@ -35,7 +34,6 @@ void WinApp::Initialize()
     ShowWindow(hwnd, SW_SHOW);
 
     timeBeginPeriod(1);
-
 }
 
 bool WinApp::Update()
