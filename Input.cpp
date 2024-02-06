@@ -6,7 +6,9 @@
 #pragma comment(lib, "dxguid.lib")
 
 //初期化
-void Input::Initialize(HINSTANCE hInstance, HWND hwnd) {
+void Input::Initialize(WinApp* winApp) {
+
+    winApp_ = winApp;
 
     HRESULT result;
 
@@ -15,7 +17,7 @@ void Input::Initialize(HINSTANCE hInstance, HWND hwnd) {
 
     // DirectInputのインスタンス生成
     result = DirectInput8Create(
-        hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&dInput, nullptr);
+        winApp_->GetHInstance(), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&dInput, nullptr);
     assert(SUCCEEDED(result));
 
     // キーボードデバイスの生成
@@ -26,7 +28,7 @@ void Input::Initialize(HINSTANCE hInstance, HWND hwnd) {
     assert(SUCCEEDED(result));
     // 排他制御レベルのセット
     result = keyboard->SetCooperativeLevel(
-        hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
+        winApp_->GetHWND(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
     assert(SUCCEEDED(result));
 }
 

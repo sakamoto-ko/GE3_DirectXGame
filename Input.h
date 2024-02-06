@@ -7,6 +7,8 @@
 #define DIRECTINPUT_VERSION     0x0800   // DirectInputのバージョン指定
 #include <dinput.h>
 
+#include "WinApp.h"
+
 //入力
 class Input
 {
@@ -15,7 +17,7 @@ public://namespace省略
 
 public://メンバ関数
 	//初期化
-	void Initialize(HINSTANCE hInstance, HWND hwnd);
+	void Initialize(WinApp* winApp);
 	//更新
 	void Update();
 
@@ -34,6 +36,8 @@ public://メンバ関数
 	bool TriggerKey(BYTE keyNumber);
 
 private://メンバ変数	
+	WinApp* winApp_ = nullptr;
+
     // DirectInputのインスタンス生成
 	ComPtr<IDirectInput8> dInput = nullptr;
 

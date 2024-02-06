@@ -8,11 +8,14 @@ class WinApp
 {
 public:
 	void Initialize();
-	void Update();
+	bool Update();
+
+	void Finalize();
 
 	static LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 	HWND GetHWND() const { return hwnd; }
+	HINSTANCE GetHInstance() const { return w.hInstance; }
 
 public:
 	// ウィンドウサイズ
@@ -21,5 +24,7 @@ public:
 
 private:
 	HWND hwnd;
+	WNDCLASSEX w{};
+	MSG msg{}; 
 };
 
