@@ -1,5 +1,4 @@
-﻿#include <Windows.h>
-#include <d3d12.h>
+﻿#include <d3d12.h>
 #include <dxgi1_6.h>
 #include <cassert>
 #include <vector>
@@ -12,6 +11,7 @@
 #include <wrl.h>
 
 #include "Input.h"
+#include "WinApp.h"
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -198,63 +198,16 @@ void UploadSubresources(ID3D12Resource* texBuff, const ScratchImage& scratchImg)
     }
 }
 
-// ウィンドウプロシージャ
-LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
-    // メッセージ応じてゲーム固有の処理を行う
-    switch (msg) {
-        // ウィンドウが破棄された
-    case WM_DESTROY:
-        // OSに対して、アプリの終了を伝える
-        PostQuitMessage(0);
-        return 0;
-    }
-
-    // 標準のメッセージ処理を行う
-    return DefWindowProc(hwnd, msg, wparam, lparam);
-}
-
-
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     //ポインタ
     Input* input = nullptr;
+    WinApp* winApp = nullptr;
 
 #pragma region WindowsAPI初期化処理
-    // ウィンドウサイズ
-    const int window_width = 1280;  // 横幅
-    const int window_height = 720;  // 縦幅
-
-    // ウィンドウクラスの設定
-    WNDCLASSEX w{};
-    w.cbSize = sizeof(WNDCLASSEX);
-    w.lpfnWndProc = (WNDPROC)WindowProc; // ウィンドウプロシージャを設定
-    w.lpszClassName = L"DirectXGame"; // ウィンドウクラス名
-    w.hInstance = GetModuleHandle(nullptr); // ウィンドウハンドル
-    w.hCursor = LoadCursor(NULL, IDC_ARROW); // カーソル指定
-
-    // ウィンドウクラスをOSに登録する
-    RegisterClassEx(&w);
-    // ウィンドウサイズ{ X座標 Y座標 横幅 縦幅 }
-    RECT wrc = { 0, 0, window_width, window_height };
-    // 自動でサイズを補正する
-    AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
-
-    // ウィンドウオブジェクトの生成
-    HWND hwnd = CreateWindow(w.lpszClassName, // クラス名
-        L"DirectXGame",         // タイトルバーの文字
-        WS_OVERLAPPEDWINDOW,        // 標準的なウィンドウスタイル
-        CW_USEDEFAULT,              // 表示X座標（OSに任せる）
-        CW_USEDEFAULT,              // 表示Y座標（OSに任せる）
-        wrc.right - wrc.left,       // ウィンドウ横幅
-        wrc.bottom - wrc.top,   // ウィンドウ縦幅
-        nullptr,                // 親ウィンドウハンドル
-        nullptr,                // メニューハンドル
-        w.hInstance,            // 呼び出しアプリケーションハンドル
-        nullptr);               // オプション
-
-    // ウィンドウを表示状態にする
-    ShowWindow(hwnd, SW_SHOW);
+    winApp = new WinApp();
+    winApp->Initialize();
 
     MSG msg{};  // メッセージ
 #pragma endregion
@@ -1115,6 +1068,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     //各種解放
     delete input;
+    delete winApp;
 
     // ウィンドウクラスを登録解除
     UnregisterClass(w.lpszClassName, w.hInstance);
