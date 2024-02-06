@@ -2,6 +2,8 @@
 
 void WinApp::Initialize()
 {
+    HRESULT hr = CoInitializeEx(0, COINIT_MULTITHREADED);
+
     // ウィンドウクラスの設定
     WNDCLASSEX w{};
     w.cbSize = sizeof(WNDCLASSEX);
@@ -40,7 +42,11 @@ void WinApp::Update()
 }
 
 // ウィンドウプロシージャ
-LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
+LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
+    if (ImGui_ImplWin32_WndProcHandler()hwnd, msg, wparam, lparam)){
+        return true;
+    }
+    
     // メッセージ応じてゲーム固有の処理を行う
     switch (msg) {
         // ウィンドウが破棄された

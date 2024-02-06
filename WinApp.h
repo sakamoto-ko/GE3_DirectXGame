@@ -1,5 +1,8 @@
-#include <Windows.h>
 #pragma once
+
+#include <Windows.h>
+#include "externals/imgui/imgui.h"
+
 
 class WinApp
 {
@@ -7,7 +10,7 @@ public:
 	void Initialize();
 	void Update();
 
-	LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 
 private:
 
