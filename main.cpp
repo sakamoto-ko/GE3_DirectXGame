@@ -834,7 +834,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // 射影変換行列(透視投影)
     XMMATRIX matProjection = XMMatrixPerspectiveFovLH(
         XMConvertToRadians(45.0f),
-        (float)WinApp::window_width, WinApp::window_height,
+        (float)WinApp::window_width / WinApp::window_height,
         0.1f, 1000.0f
     );
 
