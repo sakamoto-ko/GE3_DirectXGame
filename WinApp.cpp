@@ -2,8 +2,6 @@
 
 void WinApp::Initialize()
 {
-    HRESULT hr = CoInitializeEx(0, COINIT_MULTITHREADED);
-
     // ウィンドウクラスの設定
     WNDCLASSEX w{};
     w.cbSize = sizeof(WNDCLASSEX);
@@ -20,7 +18,7 @@ void WinApp::Initialize()
     AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 
     // ウィンドウオブジェクトの生成
-    HWND hwnd = CreateWindow(w.lpszClassName, // クラス名
+    hwnd = CreateWindow(w.lpszClassName, // クラス名
         L"DirectXGame",         // タイトルバーの文字
         WS_OVERLAPPEDWINDOW,        // 標準的なウィンドウスタイル
         CW_USEDEFAULT,              // 表示X座標（OSに任せる）
@@ -42,10 +40,10 @@ void WinApp::Update()
 }
 
 // ウィンドウプロシージャ
-LRESULT CALLBACK WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
-    if (ImGui_ImplWin32_WndProcHandler()hwnd, msg, wparam, lparam)){
+LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
+    /*if (ImGui_ImplWin32_WndProcHandler()hwnd, msg, wparam, lparam)){
         return true;
-    }
+    }*/
     
     // メッセージ応じてゲーム固有の処理を行う
     switch (msg) {
