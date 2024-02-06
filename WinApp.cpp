@@ -1,4 +1,5 @@
 #include "WinApp.h"
+#pragma comment(lib, "winmm.lib")
 
 void WinApp::Initialize()
 {
@@ -32,6 +33,9 @@ void WinApp::Initialize()
 
     // ウィンドウを表示状態にする
     ShowWindow(hwnd, SW_SHOW);
+
+    timeBeginPeriod(1);
+
 }
 
 bool WinApp::Update()
