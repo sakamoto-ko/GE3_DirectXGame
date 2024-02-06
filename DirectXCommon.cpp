@@ -1,8 +1,8 @@
 #include "DirectXCommon.h"
+#include <thread>
 #include <cassert>
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3d12.lib")
-#include <thread>
 
 void DirectXCommon::Initialize(WinApp* winApp)
 {
@@ -250,7 +250,7 @@ void DirectXCommon::UpdateFixFPS()
 	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 	std::chrono::microseconds elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - reference_);
 
-	if (elapsed < kMinTime) {
+	if (elapsed < kMinCheckTime) {
 		while (std::chrono::steady_clock::now() - reference_ < kMinTime) {
 			std::this_thread::sleep_for(std::chrono::microseconds(1));
 		}
