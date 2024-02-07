@@ -118,6 +118,14 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 	assert(SUCCEEDED(result));
 }
 
+void SpriteCommon::SpritePreDraw()
+{
+	dxCommon_->GetCommandList()->SetGraphicsRootSignature(GetRootSignature());
+	dxCommon_->GetCommandList()->SetPipelineState(GetPipelineState());
+	dxCommon_->GetCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+}
+
 DirectX::ScratchImage SpriteCommon::LoadTexture(const std::wstring& filePath)
 {
 	DirectX::ScratchImage image{};

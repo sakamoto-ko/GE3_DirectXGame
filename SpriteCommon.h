@@ -15,9 +15,11 @@ public://namespaceè»ó™
 
 public:
 	void Initialize(DirectXCommon* dxCommon);
+	void SpritePreDraw();
 
 	ID3D12RootSignature* GetRootSignature() { return rootSignature.Get(); }
 	ID3D12PipelineState* GetPipelineState() { return pipelineState.Get(); }
+	DirectXCommon* GetDirectXCommon() { return dxCommon_; }
 
 	DirectX::ScratchImage LoadTexture(const std::wstring& filePath);
 

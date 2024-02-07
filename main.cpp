@@ -29,7 +29,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     spriteCommon->Initialize(dxCommon);
 
     Sprite* sprite = new Sprite();
-    sprite->Initialize(dxCommon,spriteCommon);
+    sprite->Initialize(spriteCommon);
 
     // ゲームループ
     while (true) {
@@ -46,6 +46,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ImGuiManager::CrateCommand();
 
         dxCommon->PreDraw();
+        spriteCommon->SpritePreDraw();
 
         sprite->Draw();
 

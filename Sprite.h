@@ -23,13 +23,19 @@ private:
 		DirectX::XMFLOAT2 texcoord;
 	};
 
+	struct MaterialData {
+		DirectX::XMFLOAT4 color;
+		DirectX::XMMATRIX uvTransform;
+	};
+
 public:
-	void Initialize(DirectXCommon* dxCommon, SpriteCommon* common);
+	void Initialize(SpriteCommon* common);
 	void Update();
 	void Draw();
 
 private:
 	void CreateVertex();
+	void CreateIndex();
 	void CreateMaterial();
 	void CreateWVP();
 
@@ -40,12 +46,22 @@ private:
 	ComPtr<ID3D12Resource>vertexResource;
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView{};
 
+	ComPtr<ID3D12Resource>indexResource;
+	D3D12_INDEX_BUFFER_VIEW indexBufferView{};
+
 	ComPtr<ID3D12Resource>materialResource;
+	MaterialData* materialData = nullptr;
 
 	ComPtr<ID3D12Resource> wvpResource;
 	DirectX::XMMATRIX* wvpData = nullptr;
 
 	DirectX::XMFLOAT4 color_ = { 1.0f,1.0f,1.0f,1.0f };
+	Transform uvTransform = {
+		{1.0f,1.0f,1.0f},
+		{0.0f,0.0f,0.0f},
+		{0.0f,0.0f,0.0f}
+	};
+
 	Transform transform = {
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
