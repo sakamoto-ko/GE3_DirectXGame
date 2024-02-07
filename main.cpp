@@ -4,6 +4,7 @@
 #include "SpriteCommon.h"
 #include "Sprite.h"
 #include "ImGuiManager.h"
+#include <vector>
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -28,8 +29,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     SpriteCommon* spriteCommon = new SpriteCommon();
     spriteCommon->Initialize(dxCommon);
 
-    Sprite* sprite = new Sprite();
-    sprite->Initialize(spriteCommon);
+    std::vector<Sprite*> sprite;
+    for (int i = 0; i < 5; ++i) {
+        Sprite* tmp = new Sprite();
+        tmp->Initialize(spriteCommon);
+        tmp->SetPosition(DirectX::XMFLOAT2((float)i + 1, 0.0f));
+        sprite.push_back(tmp);
+    }
 
     // ゲームループ
     while (true) {
@@ -41,14 +47,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         input->Update();
 
-        sprite->Update();
+      /*DirectX::XMFLOAT2 pos = sprite->GetPosition();
+        pos.x += 0.01;
+        sprite->SetPosition(pos);
+
+        float rot = sprite->GetRotation();
+        rot += 0.01f;
+        sprite->SetRotation(rot);
+
+        DirectX::XMFLOAT2 scale = sprite->GetScale();
+        scale.x += 0.01f;
+        sprite->SetScale(scale);
+
+        DirectX::XMFLOAT4 color = sprite->GetColor();
+        color.x -= 0.01f;
+        if (color.x < 0.0f) {
+            color.x = 1.0f;
+        }
+        sprite->SetColor(color);*/
+
+        for (int i = 0; i < 5; ++i) {
+            sprite[i]->Update();
+        }
 
         ImGuiManager::CrateCommand();
 
         dxCommon->PreDraw();
         spriteCommon->SpritePreDraw();
 
-        sprite->Draw();
+        for (int i = 0; i < 5; ++i) {
+            sprite[i]->Draw();
+        }
 
         ImGuiManager::CommandExcute(dxCommon->GetCommandList());
 
@@ -56,7 +85,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     }
 
     //各種解放
-    delete sprite;
+    for (int i = 0; i < 5; ++i) {
+        delete sprite[i];
+    }
     delete spriteCommon;
 
     delete imGuiManager;
