@@ -43,6 +43,8 @@ public:
 	void SetScale(DirectX::XMFLOAT2 scl) { scale = scl; }
 	void SetColor(DirectX::XMFLOAT4 color) { color_ = color; }
 
+	void SetTexture(std::wstring textureFilePath);
+
 private:
 	void CreateVertex();
 	void CreateIndex();
