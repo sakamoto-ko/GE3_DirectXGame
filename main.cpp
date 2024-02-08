@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     TextureManager::GetInstance()->LoadTexture(L"Resources/reimu.png");
 
     std::vector<Sprite*> sprite;
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 1; ++i) {
         Sprite* tmp = new Sprite();
         if (i % 2 == 0) { tmp->Initialize(spriteCommon, L"Resources/mario.jpg"); }
         else if (i % 2 == 1) { tmp->Initialize(spriteCommon, L"Resources/reimu.png"); }
@@ -72,7 +72,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         }
         sprite->SetColor(color);*/
 
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 1; ++i) {
             sprite[i]->Update();
         }
 
@@ -81,7 +81,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         dxCommon->PreDraw();
         spriteCommon->SpritePreDraw();
 
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 1; ++i) {
             sprite[i]->Draw();
         }
 
@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     }
 
     //各種解放
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 1; ++i) {
         delete sprite[i];
     }
 

@@ -87,7 +87,7 @@ void SpriteCommon::Initialize(DirectXCommon* dxCommon)
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL;
 	
 	D3D12_RASTERIZER_DESC rasterizerDesc{};
-	rasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
+	rasterizerDesc.CullMode = D3D12_CULL_MODE_NONE;
 	rasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
 
 	ComPtr<IDxcBlob>vertexShaderBlob = CompileShader(L"Resources/shaders/SpriteVS.hlsl",

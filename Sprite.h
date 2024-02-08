@@ -37,11 +37,21 @@ public:
 	float GetRotation() { return rotation; }
 	DirectX::XMFLOAT4 GetColor() { return color_; }
 	DirectX::XMFLOAT2 GetScale() { return scale; }
+	DirectX::XMFLOAT2 GetAnchorPoint() { return anchorPoint; }
+	bool GetFlipX() { return isFlipX; }
+	bool GetFlipY() { return isFlipY; }
+	DirectX::XMFLOAT2 GetTextureLeftTop() { return textureLeftTop; }
+	DirectX::XMFLOAT2 GetTextureSize() { return textureSize; }
 
 	void SetPosition(DirectX::XMFLOAT2 pos) { postion = pos; }
 	void SetRotation(float rot) { rotation = rot; }
 	void SetScale(DirectX::XMFLOAT2 scl) { scale = scl; }
 	void SetColor(DirectX::XMFLOAT4 color) { color_ = color; }
+	void SetAnchorPoint(DirectX::XMFLOAT2 ap) { anchorPoint = ap; }
+	void SetFlipX(bool isFlag) { isFlipX = isFlag; }
+	void SetFlipY(bool isFlag) { isFlipY = isFlag; }
+	void SetTextureLeftTop(DirectX::XMFLOAT2 leftTop) { textureLeftTop = leftTop; }
+	void SetTextureSIze(DirectX::XMFLOAT2 size) { textureSize = size; }
 
 	void SetTexture(std::wstring textureFilePath);
 
@@ -50,6 +60,8 @@ private:
 	void CreateIndex();
 	void CreateMaterial();
 	void CreateWVP();
+
+	void AdjustTextureSize();
 
 private:
 	DirectXCommon* dxCommon_ = nullptr;
@@ -84,6 +96,14 @@ private:
 	DirectX::XMFLOAT2 postion = { 0.0f,0.0f };
 	float rotation = 0.0f;
 	DirectX::XMFLOAT2 scale = { 512.0f,512.0f };
+
+	DirectX::XMFLOAT2 anchorPoint = { 0.5f,0.5f };
+
+	bool isFlipX = false;
+	bool isFlipY = false;
+
+	DirectX::XMFLOAT2 textureLeftTop = { 0.0f,0.0f };
+	DirectX::XMFLOAT2 textureSize = { 414.0f,410.0f };
 
 	uint32_t textureIndex_ = 0;
 
