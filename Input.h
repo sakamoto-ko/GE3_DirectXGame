@@ -4,49 +4,49 @@
 
 #include <wrl.h>
 
-#define DIRECTINPUT_VERSION     0x0800   // DirectInput‚Ìƒo[ƒWƒ‡ƒ“w’è
+#define DIRECTINPUT_VERSION     0x0800   // DirectInputã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æŒ‡å®š
 #include <dinput.h>
 
 #include "WinApp.h"
 
-//“ü—Í
+//å…¥åŠ›
 class Input
 {
-public://namespaceÈ—ª
+public://namespaceçœç•¥
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
-public://ƒƒ“ƒoŠÖ”
-	//‰Šú‰»
+public://ãƒ¡ãƒ³ãƒé–¢æ•°
+	//åˆæœŸåŒ–
 	void Initialize(WinApp* winApp);
-	//XV
+	//æ›´æ–°
 	void Update();
 
 	/// <summary>
-	/// ƒL[‚Ì‰Ÿ‰º‚ğƒ`ƒFƒbƒN
+	/// ã‚­ãƒ¼ã®æŠ¼ä¸‹ã‚’ãƒã‚§ãƒƒã‚¯
 	/// </summary>
-	/// <param name="keyNumber">ƒL[”Ô†( DIK_0 “™)</param>
-	/// <retuyrns>‰Ÿ‚³‚ê‚Ä‚¢‚é‚©</returns>
+	/// <param name="keyNumber">ã‚­ãƒ¼ç•ªå·( DIK_0 ç­‰)</param>
+	/// <retuyrns>æŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹</returns>
 	bool PushKey(BYTE keyNumber);
 
 	/// <summary>
-	/// ƒL[‚ÌƒgƒŠƒK[‚ğƒ`ƒFƒbƒN
+	/// ã‚­ãƒ¼ã®ãƒˆãƒªã‚¬ãƒ¼ã‚’ãƒã‚§ãƒƒã‚¯
 	/// </summary>
-	/// <param name="keyNumber">ƒL[”Ô†( DIK_0 “™)</param>
-	/// <retuyrns>ƒgƒŠƒK[‚©</returns>
+	/// <param name="keyNumber">ã‚­ãƒ¼ç•ªå·( DIK_0 ç­‰)</param>
+	/// <retuyrns>ãƒˆãƒªã‚¬ãƒ¼ã‹</returns>
 	bool TriggerKey(BYTE keyNumber);
 
-private://ƒƒ“ƒo•Ï”	
+private://ãƒ¡ãƒ³ãƒå¤‰æ•°	
 	WinApp* winApp_ = nullptr;
 
-    // DirectInput‚ÌƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+    // DirectInputã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆ
 	ComPtr<IDirectInput8> dInput = nullptr;
 
-	//ƒL[ƒ{[ƒh‚ÌƒfƒoƒCƒX
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ãƒ‡ãƒã‚¤ã‚¹
 	ComPtr<IDirectInputDevice8> keyboard;
 
-	//‘SƒL[‚Ìó‘Ô
+	//å…¨ã‚­ãƒ¼ã®çŠ¶æ…‹
 	BYTE key[256] = {};
 
-	//‘O‰ñ‚Ì‘SƒL[‚Ìó‘Ô
+	//å‰å›ã®å…¨ã‚­ãƒ¼ã®çŠ¶æ…‹
 	BYTE keyPre[256] = {};
 };

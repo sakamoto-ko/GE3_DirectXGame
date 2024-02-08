@@ -26,6 +26,9 @@ public:
 
 	ID3D12DescriptorHeap* GetSrvDescriptorHeap() { return srvDescriptorHeap.Get(); }
 
+public:
+	static const uint32_t kMaxSRVCount;
+
 private:
 
 	void DeviceInitialize();

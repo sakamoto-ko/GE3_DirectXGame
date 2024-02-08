@@ -8,7 +8,7 @@
 
 class Sprite
 {
-public://namespaceè»ó™
+public://namespaceÁúÅÁï•
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 private:
@@ -29,7 +29,7 @@ private:
 	};
 
 public:
-	void Initialize(SpriteCommon* common);
+	void Initialize(SpriteCommon* common, std::wstring textureFilePath);
 	void Update();
 	void Draw();
 
@@ -81,13 +81,13 @@ private:
 
 	DirectX::XMFLOAT2 postion = { 0.0f,0.0f };
 	float rotation = 0.0f;
-	DirectX::XMFLOAT2 scale = { 1.0f,1.0f };
+	DirectX::XMFLOAT2 scale = { 512.0f,512.0f };
+
+	uint32_t textureIndex_ = 0;
 
 	Transform cametaTransform = {
 		{1.0f,1.0f,1.0f},
 		{0.0f,0.0f,0.0f},
 		{0.0f,0.0f,-5.0f}
 	};
-
-	D3D12_GPU_DESCRIPTOR_HANDLE textureSrvHandleGPU;
 };

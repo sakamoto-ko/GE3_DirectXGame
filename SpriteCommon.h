@@ -10,7 +10,7 @@
 
 class SpriteCommon
 {
-public://namespaceÈ—ª
+public://namespaceçœç•¥
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
 public:
@@ -20,10 +20,6 @@ public:
 	ID3D12RootSignature* GetRootSignature() { return rootSignature.Get(); }
 	ID3D12PipelineState* GetPipelineState() { return pipelineState.Get(); }
 	DirectXCommon* GetDirectXCommon() { return dxCommon_; }
-
-	DirectX::ScratchImage LoadTexture(const std::wstring& filePath);
-
-	void UploadTextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImages);
 
 private:
 	static IDxcBlob* CompileShader(

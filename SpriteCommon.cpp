@@ -126,37 +126,6 @@ void SpriteCommon::SpritePreDraw()
 
 }
 
-DirectX::ScratchImage SpriteCommon::LoadTexture(const std::wstring& filePath)
-{
-	DirectX::ScratchImage image{};
-	HRESULT result = DirectX::LoadFromWICFile(filePath.c_str(), DirectX::WIC_FLAGS_FORCE_SRGB, nullptr, image);
-	assert(SUCCEEDED(result));
-
-	DirectX::ScratchImage mipImage{};
-	result = DirectX::GenerateMipMaps(
-		image.GetImages(), image.GetImageCount(), image.GetMetadata(),
-		DirectX::TEX_FILTER_SRGB, 0, mipImage);
-	assert(SUCCEEDED(result));
-
-	return image;
-}
-
-void SpriteCommon::UploadTextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImages)
-{
-	const DirectX::TexMetadata& metadata = mipImages.GetMetadata();
-	for (size_t mipLevel = 0; mipLevel < metadata.mipLevels; ++mipLevel) {
-		const DirectX::Image* img = mipImages.GetImage(mipLevel, 0, 0);
-		HRESULT result = texture->WriteToSubresource(
-			UINT(mipLevel),
-			nullptr,
-			img->pixels,
-			UINT(img->rowPitch),
-			UINT(img->slicePitch)
-		);
-		assert(SUCCEEDED(result));
-	}
-}
-
 IDxcBlob* SpriteCommon::CompileShader(const std::wstring& filePath, const wchar_t* profile, IDxcUtils* dxcUtils, IDxcCompiler3* dxcCompiler, IDxcIncludeHandler* includeHandler)
 {
 	IDxcBlobEncoding* shaderSource = nullptr;

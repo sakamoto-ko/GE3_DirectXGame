@@ -4,6 +4,8 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3d12.lib")
 
+const uint32_t DirectXCommon::kMaxSRVCount = 512;
+
 void DirectXCommon::Initialize(WinApp* winApp)
 {
 	this->winApp_ = winApp;
@@ -18,7 +20,7 @@ void DirectXCommon::Initialize(WinApp* winApp)
 	FenceInitialize();
 
 	rtvDescriptorHeap = CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_RTV, 2, false);
-	srvDescriptorHeap = CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, 128, true);
+	srvDescriptorHeap = CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, kMaxSRVCount, true);
 }
 
 void DirectXCommon::DeviceInitialize()
