@@ -61,6 +61,8 @@ void Sprite::Update()
 	vertexData[2].texcoord = { tex_right,tex_bottom };
 	vertexData[3].texcoord = { tex_right,tex_top };
 
+#ifdef DEBUG
+
 	ImGui::Begin("Texture");
 	ImGui::DragFloat2("pos", &postion.x, 0.1f);
 	ImGui::DragFloat3("uv.pos", &uvTransform.translate.x, 0.1f);
@@ -69,6 +71,8 @@ void Sprite::Update()
 	ImGui::Checkbox("FlipX", &isFlipX);
 	ImGui::Checkbox("FlipY", &isFlipY);
 	ImGui::End();
+
+#endif // DEBUG
 }
 
 void Sprite::Draw()
