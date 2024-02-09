@@ -52,5 +52,11 @@ ImGuiManager::~ImGuiManager()
 
 void ImGuiManager::ShowDemo()
 {
+
+#ifdef DEBUG
+
 	ImGui::ShowDemoWindow();
+
+#endif // DEBUG
+
 }
